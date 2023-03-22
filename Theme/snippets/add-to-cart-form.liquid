@@ -38,10 +38,17 @@
             },
             methods: {
                 addToCart(event) {
-                    event.preventDefault()
+                    event.preventDefault();
+                    let selectedVariant 
+                    
+                    this.variants.forEach((variant, i) => {
+                        if (variant.option1 === this.form.selections[0] && variant.option2 === this.form.selections[1] && variant.option3 === this.form.selections[2]) {
+                            selectedVariant = variant
+                        }
+                    })
 
                     let data = {
-                        id: this.variant,
+                        id: selectedVariant.id,
                         quantity: 1
                     }
                     axios.post('/cart/add.js', data)
