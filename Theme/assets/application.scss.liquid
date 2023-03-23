@@ -50,6 +50,43 @@ table {
 	border-spacing: 0;
 }
 
+/* GENERAL STYLING */
+
+button {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    appearance: none;
+    box-shadow: none;
+    font: inherit;
+    outline: none;
+}
+
+/* START VARIABLES */
+@font-face {
+    font-family: "HelveticaNeueLTProBold";
+    src: url('{{ "HelveticaNeueLTPro-Bd.woff2" | asset_url }}') format("woff2");
+}
+
+@mixin phone {
+    @media (max-width: 599px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (max-width: 900px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (max-width: 1200px) {
+        @content;
+    }
+}
+
 /* START PRODUCT PAGE */
 
 .product-template {
