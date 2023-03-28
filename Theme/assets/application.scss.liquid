@@ -63,6 +63,16 @@ button {
     outline: none;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
+::selection {
+    background-color: black;
+    color: white;
+}
+
 /* START VARIABLES */
 @font-face {
     font-family: "HelveticaNeueLTProBold";
@@ -85,6 +95,77 @@ button {
     @media (max-width: 1200px) {
         @content;
     }
+}
+
+// START PRESESETS
+.container,
+.footer,
+.header {
+    padding: 0 25px;
+}
+
+body {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.25;
+    font-family: "HelveticaNeueLTProBold", Arial, Helvetica, sans-serif;
+}
+
+main {
+    padding-top: 72px;
+
+    @include phone{
+        padding-top: 0;
+    }
+}
+
+.flex {
+    display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.half {
+    width: 50%;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+// Start Header
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 10;
+    @include phone {
+        position: static;
+    }
+}
+
+.header-inner {
+    height: 72px;
+    align-items: center;
+    border-bottom: 1px solid;
+
+    @include phone {
+        display: none;
+    }
+}
+
+.header-title {
+    position: absolute;
+    left: 50%;
+    transform: 50%;
 }
 
 /* START PRODUCT PAGE */
@@ -117,3 +198,140 @@ button {
     user-select: none;
 }
 
+// Start Collection
+
+.collection-list {
+    flex-wrap: wrap;
+}
+
+//Start Product card
+.product-card {
+    // width: calc((100% -25 * 2) /3);
+    width: 30%;
+    margin-bottom: 32px;
+    height: 100%;
+}
+
+.product-image-wrapper {
+    padding-top: 120%;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.swiper-container {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    position: relative;
+    user-select: none;
+
+    img {
+        width: 100%;
+        height: 100%;
+        outline-style: none;
+        box-shadow: none;
+        border-color: transparent;
+        object-fit: cover;
+    }
+}
+
+.swiper-button-prev {
+    cursor: url('{{ "arrow-left-svgrepo-com.svg" | asset_url }}') 15 8, auto;
+}
+
+.swiper-button-next {
+    cursor: url('{{ "arrow-right-svgrepo-com.svg" | asset_url }}') 15 8, auto;
+}
+
+.swiper-button-prev, .swiper-button-next  {
+    position: absolute;
+    top: 0;
+    width: 25%;
+    height: 100%;
+    margin-top: 0;
+    outline-style: none;
+    box-shadow: none;
+    border-color: transparent;
+
+    &::after {
+        content: none;
+    }
+
+    @include phone {
+        display: none;
+    }
+}
+
+.product-card-title {
+    position: relative;
+    margin: 16px 0;
+
+    h3 {
+        padding-right: 20px;
+    }
+
+    .add-button {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-radius: 50%;
+
+        &::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 1px solid black;
+            border-radius: inherit;
+        }
+
+        .plus {
+            &::after,
+            &::before {
+                content: "";
+                width: 8px;
+                height: 2px;
+                position: absolute;
+                top: 9px;
+                left: 6px;
+                background: currentColor;
+            }
+
+            &::before {
+                transform: rotate(90deg);
+            }
+        }
+    }
+}
+
+.product-card-title:hover .add-button {
+    color: white;
+    background-color: black;
+}
+
+.product-card-sizes {
+    display: none;
+}
+
+.product-card-title:hover .product-card-price {
+    display: none;
+}
+
+.product-card-title:hover .product-card-sizes {
+    display: block;
+}
