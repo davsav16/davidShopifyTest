@@ -10,9 +10,19 @@
 
         <div class="mini-cart-item-right">
           <a :href="item.url">${ item.title }</a>
-          <div>${ item.price }</div>
+          <div>${ money(item.price) }</div>
+          <div class="mini-cart-quantity">
+            <input type="text" v-model="item.quantity">
+            <button class="mini-cart-quantity-button" @click="decrement(item)">-</button>
+            <button class="mini-cart-quantity-button" @click="increment(item)">+</button>
+          </div>
         </div>
       </div>
+    </div>
+
+    <div>
+      <div class="checkout-subtotal"></div>
+      <a href="/checkout" class="checkout-button"></a>
     </div>
   </template>
 

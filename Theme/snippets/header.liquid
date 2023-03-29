@@ -44,6 +44,7 @@
   </div>
 
   <div class="mini-cart" :class="{ hidden: miniCart }">
+    <button class="mini-cart-close-button" @click="toggleMiniCart">Close</button>
     {% render 'mini-cart' %}
   </div>
 </header>
@@ -60,6 +61,39 @@
       methods: {
         toggleMiniCart() {
           toggleMiniCart.openCart();
+        },
+
+        decrement(item) {
+          const data = {
+            id: item.key,
+            quantity: item.quantity - 1,
+          };
+
+          axios
+            .post('/cart/change.js', data)
+            .then((response) => {
+              store.getCart();
+            })
+            .catch((error) => console.log(error));
+        },
+
+        increment(item) {
+          const data = {
+            id: item.key,
+            quantity: item.quantity + 1,
+          };
+
+          axios
+            .post('/cart/change.js', data)
+            .then((response) => {
+              store.getCart();
+            })
+            .catch((error) => console.log(error));
+        },
+
+        money(value) {
+          if (!value) return 0;
+          return '$' + (value / 100).toFixed(2);
         },
       },
       computed: {
