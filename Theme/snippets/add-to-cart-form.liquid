@@ -58,6 +58,9 @@
             .then((response) => {
               store.getCart();
             })
+            .then(() => {
+              toggleMiniCart.openCart();
+            })
             .catch((error) => {
               console.log(error);
             });

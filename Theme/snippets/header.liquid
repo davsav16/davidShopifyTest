@@ -1,36 +1,15 @@
-{% comment %}
-  {% for link in linklists['main-menu'].links %}
-    {% assign child_list_handle = link.title | handleize %}
-    {% if linklists[child_list_handle].links != blank %}
-      <a href="{{ link.url }}">{{ link.title }}</a>
-      [
-      {%- for childlink in linklists[child_list_handle].links %}
-        <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
-      {% endfor -%}
-      ]
-    {% else %}
-      <a href="{{ link.url }}">{{ link.title }}</a>
-    {% endif %}
-  {% endfor %}
-
-  {% if shop.customer_accounts_enabled %}
-    {% if customer %}
-      <a href="/account">account</a>
-      {{ 'log out' | customer_logout_link }}
-    {% else %}
-      {{ 'log in ' | customer_login_link }}
-      {{ 'register' | customer_register_link }}
-    {% endif %}
-  {% endif %}
-{% endcomment %}
-
 <header class="header" id="header">
   <div class="header-inner flex space-between">
-    <div class="menu-drawer">
-      <button class="menu-button">
+    {% unless template == 'product' %}
+      <button class="menu-button" @click="toggleMenu">
         <span>Menu</span>
       </button>
-    </div>
+    {% else %}
+      <a href="javascript:history.back()" class="menu-button">
+        <span>Back</span>
+      </a>
+    {% endunless %}
+
     <a href="/" class="header-title">
       {{ shop.name }}
     </a>
@@ -43,10 +22,17 @@
     </div>
   </div>
 
+  <div class="menu-drawer" :class="{ hidden: menuDrawer }">
+    {% render 'menu-drawer' %}
+  </div>
+
   <div class="mini-cart" :class="{ hidden: miniCart }">
     <button class="mini-cart-close-button" @click="toggleMiniCart">Close</button>
     {% render 'mini-cart' %}
   </div>
+
+  {% comment %} <div class="outside" v-if="!miniCart || !menuDrawer" @click="closeAllDrawers"></div> {% endcomment %}
+  <div class="outside" v-if="!miniCart" @click="closeAllDrawers"></div>
 </header>
 
 <script>
@@ -61,6 +47,13 @@
       methods: {
         toggleMiniCart() {
           toggleMiniCart.openCart();
+        },
+        closeAllDrawers() {
+          toggleClose.closeAll();
+        },
+
+        toggleMenu() {
+          toggleMenu.openMenu();
         },
 
         decrement(item) {
@@ -101,7 +94,7 @@
           return miniCartState.hidden;
         },
         menuDrawer() {
-          return menuDrawer.hidden;
+          return menuState.hidden;
         },
         cart() {
           return this.cartData[0];

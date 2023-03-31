@@ -1,6 +1,37 @@
 {
   "current": "Default",
   "presets": {
-    "Default": { }
+    "Default": {
+      "sections": {
+        "hero": {
+          "type": "hero",
+          "settings": {
+
+          }
+        },
+
+        "rich-text": {
+          "type": "rich-text",
+          "settings": {
+
+          }
+        },
+        "image-with-text": {
+          "type": "image-with-text",
+          "settings": {
+
+          }
+        }, 
+         "logo-list": {
+          "type": "logo-list",
+          "settings": {
+
+          }
+        }
+      },
+      "content_for_index": [
+        "hero", "rich-text", "image-with-text", "logo-list"
+      ]
+    }
   }
 }

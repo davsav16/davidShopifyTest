@@ -21,8 +21,11 @@
     </div>
 
     <div>
-      <div class="checkout-subtotal"></div>
-      <a href="/checkout" class="checkout-button"></a>
+      <div class="checkout-subtotal">
+        <p>Subtotal:</p>
+        <p>${ money(cart.total_price) }</p>
+      </div>
+      <a href="/checkout" class="checkout-button">Checkout</a>
     </div>
   </template>
 
